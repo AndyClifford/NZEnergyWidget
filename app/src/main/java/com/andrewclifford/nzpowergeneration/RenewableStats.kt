@@ -64,7 +64,7 @@ internal fun updateAppWidget(
         while (true) {
 
             try {
-                val response: Connection.Response = Jsoup.connect("https://www.transpower.co.nz/power-system-live-data").timeout(10000).execute()
+                val response: Connection.Response = Jsoup.connect("https://www.transpower.co.nz/power-system-live-data").userAgent("Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.87 Safari/537.36").timeout(10000).execute()
 
                 if (response.statusCode() == 200) {
                     val doc = response.parse()
@@ -97,6 +97,7 @@ internal fun updateAppWidget(
                     views.setTextViewText(R.id.percentage_text, "NA")
                 }
             } catch (e: IOException) {
+                views.setTextColor(R.id.percentage_text, Color.parseColor("#000000"))
                 views.setTextViewTextSize(R.id.percentage_text, TypedValue.COMPLEX_UNIT_SP, 32F)
                 views.setTextViewText(R.id.percentage_text, "NA")
             }
